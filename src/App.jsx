@@ -39,7 +39,44 @@ return(
     </aside>
 
     <main className="p-6">
-      <h2 className="text-2xl font-bold">{activePage}</h2>
+      
+        {activePage === "Dashboard" && (
+        <div className=" "> 
+          <h2 className="text-2xl font-bold" >Dashboard</h2>
+          <p> welcome back</p>
+
+           <div className="flex gap-6">
+                <div className="mt-6 rounded bg-blue-50 w-80  p-10 shadow">
+                 <h2>Total Student</h2>
+                 <h2 className="text-2xl font-bold">25</h2>
+                </div>
+
+                <div className="mt-6 rounded bg-green-50 w-80  p-10 shadow">
+                 <h2>Present Today</h2>
+                 <h2 className="text-2xl font-bold">20</h2>
+                </div>
+
+                <div className="mt-6 rounded bg-orange-50 w-80  p-10 shadow">
+                 <h2>Pending Fees</h2>
+                 <h2 className="text-2xl font-bold">5</h2>
+                </div>
+
+                
+        </div>
+
+        </div>)}
+       
+        
+        
+
+         {activePage === "Students" && (
+          <div>
+            <h2 className="text-2xl font-bold">Students</h2>
+
+
+          </div>
+         )}      
+            
     </main>
 
   </div>
