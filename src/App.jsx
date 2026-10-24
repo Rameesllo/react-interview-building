@@ -7,7 +7,7 @@ return(
 <div className="min-h-screen bg-gray-100">
   {/* navbar*/}
   <nav className="bg-white p-4 shadow">
-    <h1 className="text-xl font-bold">Student Mangement</h1>
+    <h1 className="text-xl font-bold">Student Mangement.add</h1>
   </nav>
  {/* main layout*/}
   <div className="flex">
