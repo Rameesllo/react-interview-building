@@ -57,7 +57,7 @@ return(
                 </div>
 
                 <div className="mt-6 rounded bg-orange-50 w-80  p-10 shadow">
-                 <h2>Pending Fees</h2>
+                 <h2>Pending Fees.</h2>
                  <h2 className="text-2xl font-bold">5</h2>
                 </div>
 
