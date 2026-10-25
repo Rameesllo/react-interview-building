@@ -1,10 +1,12 @@
 
 import { useState, useEffect } from "react";
+import Navbar from "./components/navbar.jsx";
 
 function App() {
   const [activePage, setActivePage] = useState("Dashboard");
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
 
   useEffect(()=> {
@@ -26,16 +28,15 @@ function App() {
     setStudents(updatedStudents);
   }
 
+  const filteredStudents = students.filter((student) => {
+  return student.name.toLowerCase().includes(search.toLowerCase());
+});
+
 
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white p-4 shadow">
-        <h1 className="text-xl font-bold">
-          Student Management
-        </h1>
-      </nav>
+     <Navbar/>
 
       {/* Main layout */}
       <div className="flex">
@@ -196,6 +197,13 @@ function App() {
               <p className="mt-1 text-gray-600">
                 Manage your students here.
               </p>
+
+                <input className="mt-4 w-full rounded-lg border border-gray-300 bg-white px-4 py-2"
+                value={search}
+                placeholder="search student"
+                onChange={(e)=>setSearch(e.target.value)}
+                 />
+
               {loading?(
                 <p className="mt-4 ">Loading Students..</p>
                )
@@ -212,7 +220,7 @@ function App() {
           </thead>
 
           <tbody>
-            {students.map((student, index) => (
+            {filteredStudents.map((student, index) => (
               <tr key={student.id} className="border-b">
                 <td className="p-3">{index + 1}</td>
                 <td className="p-3">{student.name}</td>
