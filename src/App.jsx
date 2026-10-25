@@ -3,6 +3,30 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [activePage, setActivePage] = useState("Dashboard");
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(()=> {
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response)=>response.json())
+    .then((data)=>{
+      setStudents(data);
+    })
+    .finally(()=>{
+      setLoading(false);
+    });
+  },[]);
+
+  function handleDelete(id) {
+    const updatedStudents = students.filter((student)=> {
+      return student.id !== id;
+    });
+
+    setStudents(updatedStudents);
+  }
+
+
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -172,7 +196,40 @@ function App() {
               <p className="mt-1 text-gray-600">
                 Manage your students here.
               </p>
+              {loading?(
+                <p className="mt-4 ">Loading Students..</p>
+               )
+               :(
+                <div className="mt-6 overflow-x-auto rounded-lg bg-white p-4 shadow">
+        <table className="w-full text-left">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="p-3">No.</th>
+              <th className="p-3">Name</th>
+              <th className="p-3">Course</th>
+              <th className="p-3">Action</th>
+            </tr>
+          </thead>
 
+          <tbody>
+            {students.map((student, index) => (
+              <tr key={student.id} className="border-b">
+                <td className="p-3">{index + 1}</td>
+                <td className="p-3">{student.name}</td>
+                <td className="p-3">{student.company.name}</td>
+                <td className="p-3">
+                  <button onClick={()=> handleDelete(student.id)} className="rounded bg-red-500 px-3 py-1 text-white">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+               )
+
+            }
             </div>
           )}
 
