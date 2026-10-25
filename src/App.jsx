@@ -36,11 +36,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-     <Navbar/>
+     <Navbar onAdminClick={() => setActivePage("Admin")}/>
 
       {/* Main layout */}
       <div className="flex">
-        {/* Sidebar */}
+        {/* Sidebar */} 
         <aside className="w-60 min-h-screen bg-slate-800 p-4 text-white">
           <button
             onClick={() => setActivePage("Dashboard")}
