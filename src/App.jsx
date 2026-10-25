@@ -1,90 +1,199 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 
 function App() {
-const [activePage, setActivePage] = useState("Dashboard");
+  const [activePage, setActivePage] = useState("Dashboard");
 
-return(
-<div className="min-h-screen bg-gray-100">
-  {/* navbar*/}
-  <nav className="bg-white p-4 shadow">
-    <h1 className="text-xl font-bold">Student Mangement.add</h1>
-  </nav>
- {/* main layout*/}
-  <div className="flex">
-    <aside className="w-60 min-h-screen bg-slate-800 text-white p-4">
-     <button onClick={()=> setActivePage("Dashboard")}
-     className={`block w-full p-2 text-left rounded ${
-     activePage === "Dashboard" 
-     ? "bg-slate-700" 
-     :"hover:bg-slate-700"
-     }`}>
-      Dashboard</button>
+  return (
+    <div className="min-h-screen bg-gray-100">
+      {/* Navbar */}
+      <nav className="bg-white p-4 shadow">
+        <h1 className="text-xl font-bold">
+          Student Management
+        </h1>
+      </nav>
 
-     <button onClick={()=>setActivePage("Students")}
-      className={`block w-full p-2 text-left rounded ${
-        activePage === "Students"
-        ? "bg-slate-700"
-        : "hover:bg-slate-700"
-       }`}>
-        Students</button>
+      {/* Main layout */}
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className="w-60 min-h-screen bg-slate-800 p-4 text-white">
+          <button
+            onClick={() => setActivePage("Dashboard")}
+            className={`mb-2 block w-full rounded p-2 text-left ${
+              activePage === "Dashboard"
+                ? "bg-slate-700"
+                : "hover:bg-slate-700"
+            }`}
+          >
+            Dashboard
+          </button>
 
-      <button  onClick={()=>setActivePage("Attendance")}
-      className="block w-full p-2 text-left rounded hover:bg-slate-700 ">
-        Attendance</button>
+          <button
+            onClick={() => setActivePage("Students")}
+            className={`mb-2 block w-full rounded p-2 text-left ${
+              activePage === "Students"
+                ? "bg-slate-700"
+                : "hover:bg-slate-700"
+            }`}
+          >
+            Students
+          </button>
 
-       <button  onClick={()=>setActivePage("Fees")}
-       className="block w-full p-2 text-left rounded hover:bg-slate-700 ">
-        Fees</button>
+          <button
+            onClick={() => setActivePage("Attendance")}
+            className={`mb-2 block w-full rounded p-2 text-left ${
+              activePage === "Attendance"
+                ? "bg-slate-700"
+                : "hover:bg-slate-700"
+            }`}
+          >
+            Attendance
+          </button>
 
-    </aside>
+          <button
+            onClick={() => setActivePage("Fees")}
+            className={`block w-full rounded p-2 text-left ${
+              activePage === "Fees"
+                ? "bg-slate-700"
+                : "hover:bg-slate-700"
+            }`}
+          >
+            Fees
+          </button>
+        </aside>
 
-    <main className="p-6">
-      
-        {activePage === "Dashboard" && (
-        <div className=" "> 
-          <h2 className="text-2xl font-bold" >Dashboard</h2>
-          <p> welcome back</p>
+        {/* Main content */}
+        <main className="min-w-0 flex-1 p-6">
 
-           <div className="flex gap-6">
-                <div className="mt-6 rounded bg-blue-50 w-80  p-10 shadow">
-                 <h2>Total Student</h2>
-                 <h2 className="text-2xl font-bold">25</h2>
+          {/* Dashboard page */}
+          {activePage === "Dashboard" && (
+            <div>
+              <h2 className="text-2xl font-bold">Dashboard</h2>
+              <p className="mt-1 text-gray-600">Welcome back!</p>
+
+              {/* Dashboard cards */}
+              <div className="mt-6 flex flex-wrap gap-6">
+                <div className="w-80 rounded bg-blue-50 p-10 shadow">
+                  <h2>Total Students</h2>
+                  <h2 className="text-2xl font-bold">25</h2>
                 </div>
 
-                <div className="mt-6 rounded bg-green-50 w-80  p-10 shadow">
-                 <h2>Present Today</h2>
-                 <h2 className="text-2xl font-bold">20</h2>
+                <div className="w-80 rounded bg-green-50 p-10 shadow">
+                  <h2>Present Today</h2>
+                  <h2 className="text-2xl font-bold">20</h2>
                 </div>
 
-                <div className="mt-6 rounded bg-orange-50 w-80  p-10 shadow">
-                 <h2>Pending Fees.</h2>
-                 <h2 className="text-2xl font-bold">5</h2>
+                <div className="w-80 rounded bg-orange-50 p-10 shadow">
+                  <h2>Pending Fees</h2>
+                  <h2 className="text-2xl font-bold">5</h2>
+                </div>
+              </div>
+
+              {/* Recent Students table */}
+              <div className="mt-6 rounded-lg bg-white p-4 shadow">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-bold">Recent Students</h2>
+
+                  <button
+                    onClick={() => setActivePage("Students")}
+                    className="text-blue-600 hover:underline"
+                  >
+                    View All
+                  </button>
                 </div>
 
-                
-        </div>
+                <div className="mt-4 overflow-x-auto">
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="bg-gray-200 text-sm text-gray-500">
+                        <th className="p-3">Name</th>
+                        <th className="p-3">Course</th>
+                        <th className="p-3">Status</th>
+                        <th className="p-3">Action</th>
+                      </tr>
+                    </thead>
 
-        </div>)}
-       
-        
-        
+                    <tbody>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3">Ramees</td>
+                        <td className="p-3">BSc CS</td>
+                        <td className="p-3">
+                          <span className="rounded-lg border bg-green-100 px-2 py-1 text-green-700">
+                            Active
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <button className="rounded-lg border bg-blue-50 px-2 py-1 text-blue-500">
+                            View
+                          </button>
+                        </td>
+                      </tr>
 
-         {activePage === "Students" && (
-          <div>
-            <h2 className="text-2xl font-bold">Students</h2>
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3">Rahul</td>
+                        <td className="p-3">BCA</td>
+                        <td className="p-3">
+                          <span className="rounded-lg border bg-yellow-100 px-2 py-1 text-yellow-700">
+                            Pending
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <button className="rounded-lg border bg-blue-50 px-2 py-1 text-blue-500">
+                            View
+                          </button>
+                        </td>
+                      </tr>
 
+                      <tr className="border-b border-gray-200">
+                        <td className="p-3">Anjali</td>
+                        <td className="p-3">MSC</td>
+                        <td className="p-3">
+                          <span className="rounded-lg border bg-red-100 px-2 py-1 text-red-700">
+                            Inactive
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <button className="rounded-lg border bg-blue-50 px-2 py-1 text-blue-500">
+                            View
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
 
-          </div>
-         )}      
-            
-    </main>
+          {/* Students page */}
+          {activePage === "Students" && (
+            <div>
+              <h2 className="text-2xl font-bold">Students</h2>
+              <p className="mt-1 text-gray-600">
+                Manage your students here.
+              </p>
 
-  </div>
+            </div>
+          )}
 
+          {/* Attendance page */}
+          {activePage === "Attendance" && (
+            <div>
+              <h2 className="text-2xl font-bold">Attendance</h2>
+            </div>
+          )}
 
+          {/* Fees page */}
+          {activePage === "Fees" && (
+            <div>
+              <h2 className="text-2xl font-bold">Fees</h2>
+            </div>
+          )}
 
-</div>
-)
-
+        </main>
+      </div>
+    </div>
+  );
 }
+
 export default App;
